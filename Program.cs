@@ -23,39 +23,66 @@
 
             //Evaluate a postfix expression using stack
 
-            Console.WriteLine("Enter a postfix expression:");
-            string postfix = Console.ReadLine();
+            //Console.WriteLine("Enter a postfix expression:");
+            //string postfix = Console.ReadLine();
 
-            Stack<int> stack2 = new Stack<int>();
-            foreach (char c in postfix)
+            //Stack<int> stack2 = new Stack<int>();
+            //foreach (char c in postfix)
+            //{
+            //    if (char.IsDigit(c))
+            //    {
+            //        stack2.Push(c - '0');
+            //    }
+
+            //    else
+            //    {
+            //        int b = stack2.Pop();
+            //        int a = stack2.Pop();
+            //        switch (c)
+            //        {
+            //            case '+':
+            //                stack2.Push(a + b);
+            //                break;
+            //            case '-':
+            //                stack2.Push(a - b);
+            //                break;
+            //            case '*':
+            //                stack2.Push(a * b);
+            //                break;
+            //            case '/':
+            //                stack2.Push(a / b);
+            //                break;
+            //        }
+            //    }
+            //}
+            //Console.WriteLine("Result of postfix expression: " + stack2.Pop());
+
+            //Browser history navigation using stack
+            Stack<string> history = new Stack<string>();
+            string currentPage = "Home";
+            while (true)
             {
-                if (char.IsDigit(c))
+                Console.WriteLine("Current page: " + currentPage);
+                Console.WriteLine("Enter a new page to visit (or 'back' to go back):");
+                string input = Console.ReadLine();
+                if (input.ToLower() == "back")
                 {
-                    stack2.Push(c - '0');
-                }
-
-                else
-                {
-                    int b = stack2.Pop();
-                    int a = stack2.Pop();
-                    switch (c)
+                    if (history.Count > 0)
                     {
-                        case '+':
-                            stack2.Push(a + b);
-                            break;
-                        case '-':
-                            stack2.Push(a - b);
-                            break;
-                        case '*':
-                            stack2.Push(a * b);
-                            break;
-                        case '/':
-                            stack2.Push(a / b);
-                            break;
+                        currentPage = history.Pop();
+                    }
+                    else
+                    {
+                        Console.WriteLine("No history available.");
                     }
                 }
+                else
+                {
+                    history.Push(currentPage);
+                    currentPage = input;
+                }
             }
-            Console.WriteLine("Result of postfix expression: " + stack2.Pop());
+
 
 
 
