@@ -41,7 +41,7 @@ namespace StackQueueFilesTask
                         case 2: EvaluatePostfixExpressionUsingStack(); break;
                         case 3: BrowserHistoryNavigationUsingStack(); break;
                         //case 4: XMLHTMLTagValidatorUsingStack(); break;
-                        //case 5: RotateQueueElementsbyK(); break;
+                        case 5: RotateQueueElementsbyK(); break;
                         //case 6: SortaQueueUsingOnlyQueueOperations(); break;
                         //case 7: SlidingWindowMaximumUsingQueue(); break;
                         //case 8: WriteNamestoFile(); break;
@@ -69,71 +69,70 @@ namespace StackQueueFilesTask
                 }
 
             }
-            static void ReverseAStringUsingStack()
+        }
+        //Reverse a string using stack
+        static void ReverseAStringUsingStack()
+        {
+            Console.WriteLine("Enter a string to reverse:");
+            string input = Console.ReadLine();
+            Stack<char> stack = new Stack<char>();
+            //Push each character of the string onto the stack
+            foreach (char c in input)
             {
-                //Reverse a string using stack
-                Console.WriteLine("Enter a word to reverse:");
-                string word = Console.ReadLine();
-              
-
-                Stack<char> stack = new Stack<char>();
-                foreach (char c in word)
-                {
-                    stack.Push(c);
-                }
-                string reversedStr = "  ";
-                while (stack.Count > 0)
-                {
-                    reversedStr += stack.Pop();
-                }
-                Console.WriteLine("Reversed string: " + reversedStr);
+                stack.Push(c);
             }
-
-
-            //Evaluate a postfix expression using stack
-            static void EvaluatePostfixExpressionUsingStack()
+            //Pop characters from the stack to get the reversed string
+            string reversed = "";
+            while (stack.Count > 0)
             {
-
-                Console.WriteLine("Enter a postfix expression:");
-                string postfix = Console.ReadLine();
-                Stack<int> stack2 = new Stack<int>();
-                foreach (char c in postfix)
+                reversed += stack.Pop();
+            }
+            Console.WriteLine("Reversed string: " + reversed);
+        }
+       static void EvaluatePostfixExpressionUsingStack()
+        {
+            Console.WriteLine("Enter a postfix expression (e.g., 23 34 + 45 *):");
+            string input = Console.ReadLine();
+            Stack<int> stack = new Stack<int>();
+            string[] tokens = input.Split(' ');
+            foreach (string token in tokens)
+            {
+                if (int.TryParse(token, out int number))
                 {
-                    if (char.IsDigit(c))
+                    stack.Push(number);
+                }
+                else
+                {
+                    int b = stack.Pop();
+                    int a = stack.Pop();
+                    switch (token)
                     {
-                        stack2.Push(c - '0');
-                    }
-                    else
-                    {
-                        int b = stack2.Pop();
-                        int a = stack2.Pop();
-                        switch (c)
-                        {
-                            case '+':
-                                stack2.Push(a + b);
-                                break;
-                            case '-':
-                                stack2.Push(a - b);
-                                break;
-                            case '*':
-                                stack2.Push(a * b);
-                                break;
-                            case '/':
-                                stack2.Push(a / b);
-                                break;
-                        }
+                        case "+":
+                            stack.Push(a + b);
+                            break;
+                        case "-":
+                            stack.Push(a - b);
+                            break;
+                        case "*":
+                            stack.Push(a * b);
+                            break;
+                        case "/":
+                            stack.Push(a / b);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid operator: " + token);
+                            return;
                     }
                 }
-                Console.WriteLine("Result of postfix expression: " + stack2.Pop());
             }
-
-
+            Console.WriteLine("Result: " + stack.Pop());
         }
 
 
         //Browser history navigation using stack
         static void BrowserHistoryNavigationUsingStack()
-        {
+        { 
+        }
 
             
             //XML/HTML Tag validation using stack
@@ -142,8 +141,37 @@ namespace StackQueueFilesTask
                 
             }
             
+            static void RotateQueueElementsbyK()
+            {
+                //Rotate queue elements by K
+               Queue<int> queue = new Queue<int>();
+            Console.WriteLine("Enter the number of elements in the queue:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the elements of the queue:");
+            for (int i = 0; i < n; i++)
+            {
+                queue.Enqueue(int.Parse(Console.ReadLine()));
+            }
+            Console.WriteLine("Enter the value of K:");
+            int k = int.Parse(Console.ReadLine());
+            if (k > n)
+            {
+                Console.WriteLine("K cannot be greater than the number of elements in the queue.");
+                return;
+            }
+            //Rotate the queue
+            for (int i = 0; i < k; i++)
+            {
+                queue.Enqueue(queue.Dequeue());
+            }
+            Console.WriteLine("Rotated queue:");
+            foreach (int item in queue)
+            {
+                Console.Write(item + " ");
+            }
+        }
 
-            
+
 
             static void SortaQueueUsingOnlyQueueOperations()
             {
@@ -156,8 +184,6 @@ namespace StackQueueFilesTask
 
             static void WriteNamestoFile()
             {
-
-
 
             }
 
@@ -187,4 +213,4 @@ namespace StackQueueFilesTask
 
         }
     }
-}
+
